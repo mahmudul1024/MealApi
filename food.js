@@ -39,23 +39,27 @@ const searchCategory = () => {
 
   loadMeal(categorySearched);
 };
+// ************************changed method ************
+const details = (info) => {
+  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${info}`)
+    .then((respon) => respon.json())
+    .then((data) => display2(data.meals[0]));
+};
 
-const details = (info, pic) => {
-  console.log(info, pic);
-
+const display2 = (data) => {
   const infoMainElement = document.getElementById("infoId");
   infoMainElement.innerHTML = ``;
   const div = document.createElement("div");
   div.classList.add("card");
   div.innerHTML = `
-    <img src="${pic}" class="card-img-top" alt="...">
-                          <div class="card-body">
-                              <h5 class="card-title">${info}</h5>
-                              <p class="card-text"></p>
-                              <a href="#" class="btn btn-primary">Know More Details</a>
-                          </div>
+      <img src="${data.strMealThumb}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">${data.strMeal}</h5>
+                                <p class="card-text"></p>
+                                <a href="#" class="btn btn-primary">Know More Details</a>
+                            </div>
 
-    `;
+      `;
 
   infoMainElement.appendChild(div);
 };
